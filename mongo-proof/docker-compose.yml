@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
+  mongo-init:
+    container_name: mongo-init
+    image: mongo:latest
+    depends_on:
+      - mongodb
+    volumes:
+      - ./init.sh:/init.sh
+    entrypoint: ["/bin/sh", "/init.sh"]

@@ -1,0 +1,16 @@
+{
+  "name": "mongo-proof",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "servers": "PORT=3000 node server.js & PORT=4000 node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@socket.io/mongo-adapter": "^0.3.2"
+  }
+}

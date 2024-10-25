@@ -8,7 +8,8 @@
     "client-1": "PORT=3000 node client.js",
     "client-2": "PORT=4000 node client.js",
     "redis-single": "npm run servers --prefix redis-proof/single",
-    "redis-cluster": "npm run servers --prefix redis-proof/cluster"
+    "redis-cluster": "npm run servers --prefix redis-proof/cluster",
+    "mongo": "npm run servers --prefix mongo-proof"
   },
   "keywords": ["socket.io", "cluster", "nodejs", "pubsub"],
   "author": {
@@ -16,8 +17,10 @@
   },
   "license": "ISC",
   "dependencies": {
+    "@socket.io/mongo-adapter": "^0.3.2",
     "@socket.io/redis-adapter": "^8.3.0",
     "ioredis": "^5.4.1",
+    "mongodb": "^6.10.0",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1"
   }
