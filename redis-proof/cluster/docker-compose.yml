@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  redis-node-1:
+    container_name: redis-node-1
+    image: redis:7-alpine
+    command: ["redis-server", "--port", "6379", "--cluster-enabled", "yes", "--cluster-config-file", "nodes.conf", "--cluster-node-timeout", "5000", "--appendonly", "yes", "--bind", "0.0.0.0"]
+    ports:
+      - "6379:6379"
+    networks:
+      - redis-cluster
+  redis-node-2:
+    container_name: redis-node-2
+    image: redis:7-alpine
+    command: ["redis-server", "--port", "6379", "--cluster-enabled", "yes", "--cluster-config-file", "nodes.conf", "--cluster-node-timeout", "5000", "--appendonly", "yes", "--bind", "0.0.0.0"]
+    ports:
+      - "6380:6379"
+    networks:
+      - redis-cluster
+  redis-node-3:
+    container_name: redis-node-3
+    image: redis:7-alpine
+    command: ["redis-server", "--port", "6379", "--cluster-enabled", "yes", "--cluster-config-file", "nodes.conf", "--cluster-node-timeout", "5000", "--appendonly", "yes", "--bind", "0.0.0.0"]
+    ports:
+      - "6381:6379"
+    networks:
+      - redis-cluster
+  redis-init:
+    container_name: redis-init
+    image: redis:7-alpine
+    depends_on:
+      - redis-node-1
+      - redis-node-2
+      - redis-node-3
+    networks:
+      - redis-cluster
+    volumes:
+      - ./init-cluster.sh:/init-cluster.sh
+    entrypoint: ["/bin/sh", "/init-cluster.sh"]
+
+networks:
+  redis-cluster:
+    driver: bridge

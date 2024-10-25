@@ -1,0 +1,24 @@
+{
+  "name": "proof-of-concept-socket-io-cluster",
+  "version": "1.0.0",
+  "description": "A proof of concept for socket io clustering with adapters",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client-1": "PORT=3000 node client.js",
+    "client-2": "PORT=4000 node client.js",
+    "redis-single": "npm run servers --prefix redis-proof/single",
+    "redis-cluster": "npm run servers --prefix redis-proof/cluster"
+  },
+  "keywords": ["socket.io", "cluster", "nodejs", "pubsub"],
+  "author": {
+    "name": "Andranik Ghevondyan"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@socket.io/redis-adapter": "^8.3.0",
+    "ioredis": "^5.4.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
+  }
+}
