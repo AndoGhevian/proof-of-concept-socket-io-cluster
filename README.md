@@ -2,7 +2,8 @@
 
 First of all make sure that the ports used in docker compose file of corresponding example, and the socket io server ports 3000, 4000 are free.
 
-Then run corresponding compose file with `docker compose up`.
+Then run corresponding compose file with `docker compose up`. After services are up you need to wait a few seconds before init scripts are run to
+before you start servers.
 
 After that, run appropriate scripts for server and client from root package json, e.g.
   - `npm run redis-single` - need to be added for each proof of concept

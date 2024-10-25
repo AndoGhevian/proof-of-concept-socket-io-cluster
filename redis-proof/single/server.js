@@ -15,6 +15,14 @@ const pubClient = new Redis({
 })
 const subClient = pubClient.duplicate();
 
+function pubSubErrorHandler(receiver, err) {
+   console.log(`redis ${receiver} client error (socket server port ${process.env.PORT}):`, err)
+   process.exit(1)
+}
+
+pubClient.on("error", pubSubErrorHandler.bind(null, "pub"))
+subClient.on("error", pubSubErrorHandler.bind(null, "sub"))
+
 runIoServer(createAdapter(pubClient, subClient, {
    key: "socket.io" // this is optional property
 }))

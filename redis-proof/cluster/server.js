@@ -29,10 +29,13 @@ const subClient = pubClient.duplicate();
 pubClient.on("ready", () => console.log(`Publisher Redis Cluster is ready (port ${process.env.PORT})`));
 pubClient.on("reconnecting", (delay) => console.log(`Reconnecting to Redis (port ${process.env.PORT})in ${delay}ms`));
 
-pubClient.on("error", (err) => {
-   console.log(`redis pub client error (port ${process.env.PORT}):`, err)
+function pubSubErrorHandler(receiver, err) {
+   console.log(`redis ${receiver} client error (socket server port ${process.env.PORT}):`, err)
    process.exit(1)
-})
+}
+
+pubClient.on("error", pubSubErrorHandler.bind(null, "pub"))
+subClient.on("error", pubSubErrorHandler.bind(null, "sub"))
 
 runIoServer(createAdapter(pubClient, subClient, {
    key: "socket.io" // this is optional property
